@@ -17,6 +17,16 @@ SRC = \
 	src/commands/pipeline/output.c \
 	src/commands/base64/command.c \
 	src/commands/des/command.c \
+	src/commands/des/tables.c \
+	src/commands/des/bits.c \
+	src/commands/des/core.c \
+	src/commands/des/hex.c \
+	src/commands/des/io.c \
+	src/commands/des/kdf.c \
+	src/commands/des/options.c \
+	src/commands/des/ecb_cbc.c \
+	src/commands/des/ofb.c \
+	src/commands/des/process.c \
 	src/commands/md5/command.c \
 	src/commands/md5/algo.c \
 	src/commands/sha256/command.c \
