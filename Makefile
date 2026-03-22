@@ -27,7 +27,8 @@ SRC = \
 	src/commands/help_command.c \
 	src/core/command_registry.c \
 	src/core/io.c \
-	src/core/cipher/base64.c \
+	src/core/cipher/base64_encode.c \
+	src/core/cipher/base64_decode.c \
 	src/core/output/base.c \
 	src/core/output/extra.c \
 	src/core/utils.c \
