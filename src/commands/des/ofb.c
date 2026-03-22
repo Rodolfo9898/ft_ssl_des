@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/des.h"
+#include "ft_ssl.h"
 
 static void	xor_chunk(unsigned char *dst, const unsigned char *src, size_t len)
 {
@@ -24,26 +24,36 @@ static void	xor_chunk(unsigned char *dst, const unsigned char *src, size_t len)
 	}
 }
 
+static uint64_t	next_stream(uint64_t state, t_des_options *opts,
+	t_des_subkeys *sub)
+{
+	if (opts->algo == DES_ALGO_3DES)
+		return (des3_block_crypt(state, sub, 0));
+	return (des_block_crypt(state, sub->k1, 0));
+}
+
+static void	init_subkeys(t_des_options *opts, t_des_subkeys *sub)
+{
+	des_compute_subkeys(opts->keys[0], sub->k1);
+	des_compute_subkeys(opts->keys[1], sub->k2);
+	des_compute_subkeys(opts->keys[2], sub->k3);
+}
+
 int	des_run_ofb(const unsigned char *data, size_t len,
 	t_des_options *opts, t_buffer *out)
 {
 	t_des_subkeys	sub;
 	unsigned char	buf[8];
-	uint64_t		state;
 	size_t			index;
 	size_t			chunk;
+	uint64_t		state;
 
-	des_compute_subkeys(opts->keys[0], sub.k1);
-	des_compute_subkeys(opts->keys[1], sub.k2);
-	des_compute_subkeys(opts->keys[2], sub.k3);
+	init_subkeys(opts, &sub);
 	state = opts->iv;
 	index = 0;
 	while (index < len)
 	{
-		if (opts->algo == DES_ALGO_3DES)
-			state = des3_block_crypt(state, &sub, 0);
-		else
-			state = des_block_crypt(state, sub.k1, 0);
+		state = next_stream(state, opts, &sub);
 		des_store_be64(state, buf);
 		chunk = len - index;
 		if (chunk > 8)

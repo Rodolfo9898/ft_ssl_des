@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/des.h"
+#include "ft_ssl.h"
 
 int	des_prepare_input_for_decrypt(t_des_options *opts, t_buffer *input,
 	t_buffer *working)

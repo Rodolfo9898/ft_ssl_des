@@ -109,4 +109,29 @@ typedef struct s_split_state
 	char	quote;
 }	t_split_state;
 
+typedef struct s_des_options
+{
+	t_des_algo	algo;
+	t_des_mode	mode;
+	int			decrypt;
+	int			base64;
+	char		*input_path;
+	char		*output_path;
+	int			key_set;
+	uint64_t	keys[3];
+	int			pass_set;
+	char		*password;
+	int			salt_set;
+	uint64_t	salt;
+	int			iv_set;
+	uint64_t	iv;
+}	t_des_options;
+
+typedef struct s_des_subkeys
+{
+	uint64_t	k1[16];
+	uint64_t	k2[16];
+	uint64_t	k3[16];
+}	t_des_subkeys;
+
 #endif

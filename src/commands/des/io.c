@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/des.h"
+#include "ft_ssl.h"
 
 int	des_read_random_salt(uint64_t *salt)
 {
-	int			fd;
-	ssize_t		got;
+	int				fd;
+	ssize_t			got;
 	unsigned char	bytes[8];
 
 	fd = open("/dev/urandom", O_RDONLY);
@@ -23,7 +23,7 @@ int	des_read_random_salt(uint64_t *salt)
 		return (0);
 	got = read(fd, bytes, sizeof(bytes));
 	close(fd);
-	if (got != (ssize_t)sizeof(bytes))
+	if (got != (ssize_t) sizeof(bytes))
 		return (errno = EIO, 0);
 	*salt = des_load_be64(bytes);
 	return (1);

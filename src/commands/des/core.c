@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/des.h"
+#include "ft_ssl.h"
 
 void	des_compute_subkeys(uint64_t key, uint64_t subkeys[16])
 {
@@ -57,7 +57,8 @@ static uint32_t	des_feistel(uint32_t right, uint64_t subkey)
 	return ((uint32_t)des_permute((uint64_t)s_out, g_des_p, 32, 32));
 }
 
-uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16], int decrypt)
+uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16],
+	int decrypt)
 {
 	uint64_t	ip;
 	uint32_t	left;
@@ -82,7 +83,8 @@ uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16], int decrypt
 	return (des_permute((((uint64_t)right) << 32) | left, g_des_fp, 64, 64));
 }
 
-uint64_t	des3_block_crypt(uint64_t block, const t_des_subkeys *keys, int decrypt)
+uint64_t	des3_block_crypt(uint64_t block, const t_des_subkeys *keys,
+	int decrypt)
 {
 	if (decrypt)
 	{

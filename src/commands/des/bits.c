@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/des.h"
+#include "ft_ssl.h"
 
 uint64_t	des_load_be64(const unsigned char *bytes)
 {
