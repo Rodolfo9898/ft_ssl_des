@@ -14,35 +14,39 @@
 
 void	des_compute_subkeys(uint64_t key, uint64_t subkeys[16])
 {
-	uint64_t	pc1;
-	uint32_t	c;
-	uint32_t	d;
-	int			round;
+	const t_des_tables	*tables;
+	uint64_t			pc1;
+	uint32_t			c;
+	uint32_t			d;
+	int					round;
 
-	pc1 = des_permute(key, g_des_pc1, 56, 64);
+	tables = des_get_tables();
+	pc1 = des_permute(key, tables->pc1, 56, 64);
 	c = (uint32_t)((pc1 >> 28) & 0x0FFFFFFF);
 	d = (uint32_t)(pc1 & 0x0FFFFFFF);
 	round = 0;
 	while (round < 16)
 	{
-		c = des_left_rotate28(c, g_des_shifts[round]);
-		d = des_left_rotate28(d, g_des_shifts[round]);
+		c = des_left_rotate28(c, tables->shifts[round]);
+		d = des_left_rotate28(d, tables->shifts[round]);
 		subkeys[round] = des_permute((((uint64_t)c) << 28) | d,
-				g_des_pc2, 48, 56);
+				tables->pc2, 48, 56);
 		round++;
 	}
 }
 
 static uint32_t	des_feistel_lookup(uint64_t x, int index)
 {
-	uint32_t	chunk;
-	uint32_t	row;
-	uint32_t	col;
+	const t_des_tables	*tables;
+	uint32_t			chunk;
+	uint32_t			row;
+	uint32_t			col;
 
+	tables = des_get_tables();
 	chunk = (uint32_t)((x >> (42 - (index * 6))) & 0x3F);
 	row = ((chunk & 0x20) >> 4) | (chunk & 0x01);
 	col = (chunk >> 1) & 0x0F;
-	return ((uint32_t)g_des_sbox[index][row * 16 + col]);
+	return ((uint32_t)tables->sbox[index][row * 16 + col]);
 }
 
 static uint32_t	des_feistel(uint32_t right, uint64_t subkey)
@@ -51,7 +55,7 @@ static uint32_t	des_feistel(uint32_t right, uint64_t subkey)
 	uint32_t	s_out;
 	int			index;
 
-	x = des_permute((uint64_t)right, g_des_e, 48, 32) ^ subkey;
+	x = des_permute((uint64_t)right, des_get_tables()->e, 48, 32) ^ subkey;
 	s_out = 0;
 	index = 0;
 	while (index < 8)
@@ -60,7 +64,8 @@ static uint32_t	des_feistel(uint32_t right, uint64_t subkey)
 		s_out |= des_feistel_lookup(x, index);
 		index++;
 	}
-	return ((uint32_t)des_permute((uint64_t)s_out, g_des_p, 32, 32));
+	return ((uint32_t)des_permute((uint64_t)s_out,
+			des_get_tables()->p, 32, 32));
 }
 
 uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16],
@@ -72,7 +77,7 @@ uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16],
 	uint32_t	next;
 	int			round;
 
-	ip = des_permute(block, g_des_ip, 64, 64);
+	ip = des_permute(block, des_get_tables()->ip, 64, 64);
 	left = (uint32_t)(ip >> 32);
 	right = (uint32_t)(ip & 0xFFFFFFFF);
 	round = 0;
@@ -86,7 +91,8 @@ uint64_t	des_block_crypt(uint64_t block, const uint64_t subkeys[16],
 		left = next;
 		round++;
 	}
-	return (des_permute((((uint64_t)right) << 32) | left, g_des_fp, 64, 64));
+	return (des_permute((((uint64_t)right) << 32) | left,
+			des_get_tables()->fp, 64, 64));
 }
 
 uint64_t	des3_block_crypt(uint64_t block, const t_des_subkeys *keys,

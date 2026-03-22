@@ -134,4 +134,16 @@ typedef struct s_des_subkeys
 	uint64_t	k3[16];
 }	t_des_subkeys;
 
+typedef struct s_des_tables
+{
+	int	ip[64];
+	int	fp[64];
+	int	e[48];
+	int	p[32];
+	int	pc1[56];
+	int	pc2[48];
+	int	shifts[16];
+	int	sbox[8][64];
+}	t_des_tables;
+
 #endif

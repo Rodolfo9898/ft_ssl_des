@@ -93,14 +93,7 @@ int							base64_encode_data(const unsigned char *data,
 int							base64_decode_data(const unsigned char *data,
 								size_t len, t_buffer *out);
 
-extern const int			g_des_ip[64];
-extern const int			g_des_fp[64];
-extern const int			g_des_e[48];
-extern const int			g_des_p[32];
-extern const int			g_des_pc1[56];
-extern const int			g_des_pc2[48];
-extern const int			g_des_shifts[16];
-extern const int			g_des_sbox[8][64];
+const t_des_tables			*des_get_tables(void);
 
 uint64_t					des_load_be64(const unsigned char *bytes);
 void						des_store_be64(uint64_t value,
