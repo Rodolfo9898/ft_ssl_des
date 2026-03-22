@@ -35,8 +35,14 @@ void	des_compute_subkeys(uint64_t key, uint64_t subkeys[16])
 
 static uint32_t	des_feistel_lookup(uint64_t x, int index)
 {
-	return ((uint32_t)g_des_sbox[index][(((x >> (47 - (index * 6))) & 0x20)
-			>> 1) | ((x >> (42 - (index * 6))) & 0x1F)]);
+	uint32_t	chunk;
+	uint32_t	row;
+	uint32_t	col;
+
+	chunk = (uint32_t)((x >> (42 - (index * 6))) & 0x3F);
+	row = ((chunk & 0x20) >> 4) | (chunk & 0x01);
+	col = (chunk >> 1) & 0x0F;
+	return ((uint32_t)g_des_sbox[index][row * 16 + col]);
 }
 
 static uint32_t	des_feistel(uint32_t right, uint64_t subkey)

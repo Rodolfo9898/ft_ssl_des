@@ -12,7 +12,7 @@
 
 #include "ft_ssl.h"
 
-static size_t	build_input(unsigned char *buf, unsigned char prev[16],
+static size_t	build_input(unsigned char *buf, unsigned char *prev,
 	size_t prev_len, const char *password)
 {
 	size_t	pass_len;
@@ -36,13 +36,13 @@ static size_t	build_input(unsigned char *buf, unsigned char prev[16],
 int	des_evp_bytes_to_material(const char *password, uint64_t salt,
 	unsigned char *material, size_t need_len)
 {
-	unsigned char	digest[16];
+	unsigned char	digest[32];
 	unsigned char	salt_bytes[8];
 	unsigned char	buffer[1024];
 	size_t			generated;
 	size_t			copy_len;
 
-	if (ft_strlen(password) + 24 > sizeof(buffer))
+	if (ft_strlen(password) + 40 > sizeof(buffer))
 		return (errno = EINVAL, 0);
 	des_store_be64(salt, salt_bytes);
 	generated = 0;
@@ -51,14 +51,14 @@ int	des_evp_bytes_to_material(const char *password, uint64_t salt,
 	{
 		copy_len = build_input(buffer, digest, copy_len, password);
 		ft_memcpy(buffer + copy_len, salt_bytes, 8);
-		if (!get_md5_algorithm()->compute(buffer, copy_len + 8, digest))
+		if (!get_sha256_algorithm()->compute(buffer, copy_len + 8, digest))
 			return (0);
-		copy_len = 16;
+		copy_len = 32;
 		if (generated + copy_len > need_len)
 			copy_len = need_len - generated;
 		ft_memcpy(material + generated, digest, copy_len);
 		generated += copy_len;
-		copy_len = 16;
+		copy_len = 32;
 	}
 	return (1);
 }
