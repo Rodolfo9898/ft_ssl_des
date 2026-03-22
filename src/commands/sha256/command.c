@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 static const t_sha256_tables	*sha256_tables(void)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 void	whirlpool_init_round_key(int round, uint64_t (*c)[256], uint64_t *rc)
 {

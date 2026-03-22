@@ -6,11 +6,11 @@
 /*   By: rperez-t <rperez-t@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 00:00:00 by rperez-t          #+#    #+#             */
-/*   Updated: 2026/03/22 00:00:00 by rperez-t         ###   ########.fr       */
+/*   Updated: 2026/03/22 21:46:22 by rperez-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 int	des_read_random_salt(uint64_t *salt)
 {

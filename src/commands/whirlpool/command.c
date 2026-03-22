@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 static t_whirlpool_tables	*whirlpool_tables(void)
 {

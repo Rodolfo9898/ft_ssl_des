@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 static int	process_string_option(t_digest_runtime *runtime, int argc,
 	char **argv, int *index)

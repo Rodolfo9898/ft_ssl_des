@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../include/ft_ssl.h"
 
 const t_command	*get_command_table(size_t *count)
 {

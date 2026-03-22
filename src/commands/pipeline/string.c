@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 static int	compute_and_print(t_digest_runtime *runtime,
 	const t_digest_print *print, const t_buffer *buffer)

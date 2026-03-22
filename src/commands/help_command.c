@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../include/ft_ssl.h"
 
 int	run_help_command(const t_command *command, int argc, char **argv)
 {

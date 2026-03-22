@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../include/ft_ssl.h"
 
 size_t	ft_strlen(const char *str)
 {

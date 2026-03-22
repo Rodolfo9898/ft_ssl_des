@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../../include/ft_ssl.h"
 
 static void	init_runtime(t_digest_runtime *runtime,
 	const t_digest_algorithm *algorithm)

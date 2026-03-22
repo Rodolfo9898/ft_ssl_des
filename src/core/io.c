@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#include "../../include/ft_ssl.h"
 
 static int	grow_buffer(t_buffer *buffer, size_t len)
 {
