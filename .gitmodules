@@ -1,0 +1,6 @@
+[submodule "libs/libft"]
+	path = libs/libft
+	url = https://github.com/Rodolfo9898/libft.git
+[submodule "libs/ft_ssl_md5"]
+	path = libs/ft_ssl_md5
+	url = https://github.com/Rodolfo9898/ft_ssl_md5.git
