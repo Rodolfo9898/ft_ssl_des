@@ -25,6 +25,22 @@ static void	build_prompt(char *prompt, char *prefix, const t_des_options *opts)
 }
 
 /*
+** Whether there is a terminal to type on. Without one, getpass() would read
+** the standard input instead and, at its end, give an empty password: fail
+** as OpenSSL does rather than encrypt with it.
+*/
+static int	terminal_available(char *command)
+{
+	int	fd;
+
+	fd = open(TTY_DEVICE, O_RDWR);
+	if (fd < 0)
+		return (cipher_system_error(command, TTY_DEVICE));
+	close(fd);
+	return (1);
+}
+
+/*
 ** A password typed without being shown (getpass, allowed by p.6), copied:
 ** getpass() keeps it in a buffer of its own, which the next call reuses.
 */
@@ -33,6 +49,8 @@ static char	*read_password(char *prompt, char *command)
 	char	*typed;
 	char	*copy;
 
+	if (!terminal_available(command))
+		return (NULL);
 	typed = getpass(prompt);
 	if (typed == NULL)
 	{

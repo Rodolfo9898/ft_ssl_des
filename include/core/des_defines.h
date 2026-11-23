@@ -73,9 +73,13 @@
 # define PROMPT_ENCRYPT " encryption password:"
 # define PROMPT_DECRYPT " decryption password:"
 
-/* The files: -o creates with these permissions, the salt comes from urandom */
+/*
+** The files: -o creates with these permissions, the salt comes from urandom,
+** and a password is only asked when there is a terminal to type it on.
+*/
 # define OUTPUT_FILE_MODE 0644
 # define RANDOM_DEVICE "/dev/urandom"
+# define TTY_DEVICE "/dev/tty"
 
 /*
 ** Base64 (RFC 4648): three bytes become four characters of six bits each, '='

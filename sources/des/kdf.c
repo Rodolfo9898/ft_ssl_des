@@ -109,6 +109,7 @@ int	des_evp_bytes_to_key(const t_des_options *opts, unsigned char *material,
 		done += chunk;
 	}
 	ft_bzero(digest, sizeof(digest));
+	ft_bzero(input, SHA256_DIGEST_SIZE + ft_strlen(opts->password) + SALT_SIZE);
 	free(input);
 	return (done >= need);
 }
