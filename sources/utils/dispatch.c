@@ -21,9 +21,9 @@
 #if BONUS_MODE
 
 static const t_command	g_commands[] = {
-{"md5", COMMAND_GROUP_MESSAGE_DIGEST, run_md5},
-{"sha256", COMMAND_GROUP_MESSAGE_DIGEST, run_sha256},
-{"whirlpool", COMMAND_GROUP_MESSAGE_DIGEST, run_whirlpool},
+{MD5_NAME, COMMAND_GROUP_MESSAGE_DIGEST, run_md5},
+{SHA256_NAME, COMMAND_GROUP_MESSAGE_DIGEST, run_sha256},
+{WHIRLPOOL_NAME, COMMAND_GROUP_MESSAGE_DIGEST, run_whirlpool},
 {BASE64_NAME, COMMAND_GROUP_CIPHER, run_base64},
 {DES_NAME, COMMAND_GROUP_CIPHER, run_des},
 {DES_ECB_NAME, COMMAND_GROUP_CIPHER, run_des_ecb},
@@ -38,8 +38,8 @@ static const t_command	g_commands[] = {
 #else
 
 static const t_command	g_commands[] = {
-{"md5", COMMAND_GROUP_MESSAGE_DIGEST, run_md5},
-{"sha256", COMMAND_GROUP_MESSAGE_DIGEST, run_sha256},
+{MD5_NAME, COMMAND_GROUP_MESSAGE_DIGEST, run_md5},
+{SHA256_NAME, COMMAND_GROUP_MESSAGE_DIGEST, run_sha256},
 {BASE64_NAME, COMMAND_GROUP_CIPHER, run_base64},
 {DES_NAME, COMMAND_GROUP_CIPHER, run_des},
 {DES_ECB_NAME, COMMAND_GROUP_CIPHER, run_des_ecb},
