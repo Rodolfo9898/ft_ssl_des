@@ -133,6 +133,15 @@ The image (Debian, with `build-essential`, `valgrind`, `openssl` and its legacy 
 builds both programs from the sources as a user that is not root, so that the unreadable
 file check means something.
 
+A plain `make` that fails also prints, in yellow, `dependencies missing: run make
+docker-shell to have them all inside the docker container` (`mk/hint.mk`). The build runs
+as always, in a second `make`, and its exit status is kept: the line only comes after its
+errors. Only the plain `make` does it: `make bonus`, `make clean`, `make re`, any other
+rule, a Ctrl-C and a `make` inside the container print nothing extra. A mistake in your own
+code shows it too, so read the errors above it first. `make docker-shell` gives a shell in
+the Linux image, with the toolchain and both programs built; `make docker-clean` removes
+the image when you are done.
+
 ## How the libraries are handled
 
 Both libraries are git submodules in `libs/`, fetched by the first `make` (`git submodule
@@ -152,7 +161,8 @@ update --init --remote --recursive`) and built by their own Makefiles:
 ## Project structure
 
 ```
-Makefile, mk/        the build: colors and helpers, settings, libraries, sources
+Makefile, mk/        the build: colors and helpers, settings, libraries, sources,
+                     and hint.mk, the yellow hint of a plain make that fails
 include/
   ft_ssl_des.h       the prototypes, by file
   core/des_defines.h every constant, with its meaning (the DES tables entry by entry)
